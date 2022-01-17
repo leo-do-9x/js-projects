@@ -49,3 +49,19 @@ kbd {
   letter-spacing: .1rem;
   color: #ffc600;
 }
+
+.drum-kit {
+    border-color: #ffc600;
+    animation: outToIn 1s ease-out;
+    animation-fill-mode: backwards;
+}
+
+@keyframes outToIn {
+    0% {
+        transform: translate(1px);
+    }
+
+    100% {
+        transform: translate(0px);
+    }
+}
