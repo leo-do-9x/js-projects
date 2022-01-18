@@ -62,10 +62,10 @@
         const keys = document.querySelectorAll('.key');
 
         keys.forEach(key => {
-            key.classList.remove('drum-kit');
+            key.classList.remove('playing');
 
            if (key.querySelector('kbd').textContent == e.key.toUpperCase()) {
-                key.classList.add('drum-kit');
+                key.classList.add('playing');
 
                 const dataKey = key.getAttribute('data-key');
 
