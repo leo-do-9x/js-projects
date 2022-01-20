@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS Drum Kit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    backgroundImage: {
+                        'image': "url('./background.jpg')",
+                    },
+                    transitionProperty: {
+                        end : "all .07s ease",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .bg-black-50 {
+            background: rgba(0, 0, 0, 0.4);
+        }
+      </style>
+    <style type="text/tailwindcss">
+        @layer utilities {
+          .playing {
+            transform: scale(1.1);
+            border-color: #ffc600;
+            box-shadow: 0 0 1rem #ffc600;
+          }
+        }
+      </style>
+</head>
+
+<body class="bg-image">
+    <div class="keys flex justify-center items-center w-screen h-screen">
+        <div data-key="65" class="key flex flex-col justify-center items-center border border-4 border-black px-8 py-3 mx-2 rounded bg-black-50 transition-end">
+            <kbd class="uppercase text-5xl font-sans text-white">A</kbd>
+            <span class="sound uppercase font-light text-sm text-yellow-500">clap</span>
+        </div>
+        <div data-key="83" class="key flex flex-col justify-center items-center border border-4 border-black px-8 py-3 mx-2 rounded bg-black-50 transition-end">
+            <kbd class="uppercase text-5xl font-sans text-white">S</kbd>
+            <span class="sound uppercase font-light text-sm text-yellow-500">hihat</span>
+        </div>
+        <div data-key="68" class="key flex flex-col justify-center items-center border border-4 border-black px-8 py-3 mx-2 rounded bg-black-50 transition-end">
+            <kbd class="uppercase text-5xl font-sans text-white">D</kbd>
+            <span class="sound uppercase font-light text-sm text-yellow-500">kick</span>
+        </div>
+        <div data-key="70" class="key flex flex-col justify-center items-center border border-4 border-black px-8 py-3 mx-2 rounded bg-black-50 transition-end">
+            <kbd class="uppercase text-5xl font-sans text-white">F</kbd>
+            <span class="sound uppercase font-light text-sm text-yellow-500">openhat</span>
+        </div>
+        <div data-key="71" class="key flex flex-col justify-center items-center border border-4 border-black px-8 py-3 mx-2 rounded bg-black-50 transition-end">
+            <kbd class="uppercase text-5xl font-sans text-white">G</kbd>
+            <span class="sound uppercase font-light text-sm text-yellow-500">boom</span>
+        </div>
+        <div data-key="72" class="key flex flex-col justify-center items-center border border-4 border-black px-8 py-3 mx-2 rounded bg-black-50 transition-end">
+            <kbd class="uppercase text-5xl font-sans text-white">H</kbd>
+            <span class="sound uppercase font-light text-sm text-yellow-500">ride</span>
+        </div>
+        <div data-key="74" class="key flex flex-col justify-center items-center border border-4 border-black px-8 py-3 mx-2 rounded bg-black-50 transition-end">
+            <kbd class="uppercase text-5xl font-sans text-white">J</kbd>
+            <span class="sound uppercase font-light text-sm text-yellow-500">snare</span>
+        </div>
+        <div data-key="75" class="key flex flex-col justify-center items-center border border-4 border-black px-8 py-3 mx-2 rounded bg-black-50 transition-end">
+            <kbd class="uppercase text-5xl font-sans text-white">K</kbd>
+            <span class="sound uppercase font-light text-sm text-yellow-500">tom</span>
+        </div>
+        <div data-key="76" class="key flex flex-col justify-center items-center border border-4 border-black px-8 py-3 mx-2 rounded bg-black-50 transition-end">
+            <kbd class="uppercase text-5xl font-sans text-white">L</kbd>
+            <span class="sound uppercase font-light text-sm text-yellow-500">tink</span>
+        </div>
+    </div>
+
+    <script>
+        const keys = document.querySelectorAll('.key');
+
+        function removeTransition(e) {
+            if (e.propertyName !== 'transform') return;
+
+            this.classList.remove('playing');
+        }
+
+        window.addEventListener('keydown', (e) => {
+
+            keys.forEach(key => key.classList.remove('playing'))
+
+            const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+
+            if (!key) return;
+
+            key.classList.add('playing');
+
+            const audioName = key.querySelector('span.sound').textContent;
+
+            const audio = new Audio(`sounds/${audioName}.wav`)
+
+            audio.currentTime = 0;
+
+            audio.play();
+
+            key.addEventListener('transitionend', removeTransition);
+        })
+    </script>
+</body>
+
+</html>
