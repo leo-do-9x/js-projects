@@ -14,7 +14,7 @@
                     },
                     transitionProperty: {
                         end : "all .07s ease",
-                    }
+                    },
                 }
             }
         }
@@ -27,9 +27,7 @@
     <style type="text/tailwindcss">
         @layer utilities {
           .playing {
-            transform: scale(1.1);
-            border-color: #ffc600;
-            box-shadow: 0 0 1rem #ffc600;
+            @apply scale-110 border-yellow-300 shadow-yellow-300
           }
         }
       </style>
